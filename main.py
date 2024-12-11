@@ -41,7 +41,7 @@ class ScraperMain:
                         if detail.get("date_published"):
                             date_published = detail.get("date_published").split()[0]
                             if date_published == yesterday:
-                                print(f"Detail matched date_published filter: {detail}")
+                                # print(f"Detail matched date_published filter: {detail}")
                                 car_type = detail.get("type", "unknown")
                                 if car_type not in car_data:
                                     car_data[car_type] = []
@@ -74,7 +74,7 @@ class ScraperMain:
                 print(f"No data to save for {brand_name}")
 
     def save_to_excel(self, brand_name, car_data):
-        print(f"Received car_data for {brand_name} in save_to_excel: {car_data}")
+        # print(f"Received car_data for {brand_name} in save_to_excel: {car_data}")
 
         excel_file = f"{brand_name}.xlsx"
         print(f"Saving data to {excel_file}")
