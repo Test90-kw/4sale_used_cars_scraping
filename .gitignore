@@ -1,0 +1,11 @@
+# Ignore specific credentials folder
+credentials/
+
+# Ignore all JSON files
+*.json
+
+# Ignore specific sensitive file explicitly (redundant if credentials/ already ignored)
+credentials/car-scraper-444411-4d320842760c.json
+
+# Ignore any file with "real-estate-property-scraper" in its name
+*car-scraper-444411-4d320842760c.json
