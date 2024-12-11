@@ -36,6 +36,17 @@ class SavingOnDrive:
 
     def save_files(self, files):
         parent_folder_id = '11pG4Jwy1gJUbz7cILT6sfzmLD5f75nqU'  # ID of "Property Scraper Uploads"
+        try:
+        # Check if the folder exists and can be accessed
+        folder = self.service.files().get(fileId=parent_folder_id).execute()
+        print(f"Folder found: {folder['name']}")
+
+        except Exception as e:
+            print(f"Error accessing the folder with ID {parent_folder_id}: {e}")
+            # Optionally, create a new folder if the existing one cannot be accessed
+            print("Attempting to create a new folder...")
+            parent_folder_id = self.create_folder('Cars Scraper Uploads')
+            print(f"New folder created with ID: {parent_folder_id}")
 
         yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
         folder_id = self.create_folder(yesterday, parent_folder_id)
@@ -43,3 +54,4 @@ class SavingOnDrive:
         for file_name in files:
             self.upload_file(file_name, folder_id)
         print(f"Files uploaded successfully to folder '{yesterday}' on Google Drive.")
+
