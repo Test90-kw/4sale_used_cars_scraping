@@ -318,18 +318,16 @@ if __name__ == "__main__":
     scraper = ScraperMain(brand_data)
     asyncio.run(scraper.scrape_all_brands())
 
-    # Added the following lines
     # Load the service account JSON key from the GitHub secret
-
-    # credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
-    # if not credentials_json:
-    #     raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
-    #
-    # credentials_dict = json.loads(credentials_json)
-    #
-    # # Initialize the SavingOnDrive class
-    # drive_saver = SavingOnDrive(credentials_dict)
-    # drive_saver.authenticate()
-    #
-    # # Save files to Google Drive
-    # drive_saver.save_files(ScraperMain.excel_files)  # Pass the static variable
+    credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
+    if not credentials_json:
+        raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
+    
+    credentials_dict = json.loads(credentials_json)
+    
+    # Initialize the SavingOnDrive class
+    drive_saver = SavingOnDrive(credentials_dict)
+    drive_saver.authenticate()
+    
+    # Save files to Google Drive
+    drive_saver.save_files(ScraperMain.excel_files)  # Pass the static variable
