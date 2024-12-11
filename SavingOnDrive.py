@@ -54,4 +54,3 @@ class SavingOnDrive:
         for file_name in files:
             self.upload_file(file_name, folder_id)
         print(f"Files uploaded successfully to folder '{yesterday}' on Google Drive.")
-
