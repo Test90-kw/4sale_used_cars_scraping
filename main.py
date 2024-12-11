@@ -41,7 +41,6 @@ class ScraperMain:
                         if detail.get("date_published"):
                             date_published = detail.get("date_published").split()[0]
                             if date_published == yesterday:
-                                # print(f"Detail matched date_published filter: {detail}")
                                 car_type = detail.get("type", "unknown")
                                 if car_type not in car_data:
                                     car_data[car_type] = []
@@ -67,15 +66,14 @@ class ScraperMain:
                 try:
                     # Save file and update the static variable
                     excel_file = self.save_to_excel(brand_name, car_data)
-                    ScraperMain.excel_files.append(excel_file)
+                    if excel_file:
+                        ScraperMain.excel_files.append(excel_file)
                 except Exception as e:
                     print(f"Error saving data for {brand_name}: {e}")
             else:
                 print(f"No data to save for {brand_name}")
 
     def save_to_excel(self, brand_name, car_data):
-        # print(f"Received car_data for {brand_name} in save_to_excel: {car_data}")
-
         excel_file = f"{brand_name}.xlsx"
         print(f"Saving data to {excel_file}")
 
@@ -325,7 +323,8 @@ if __name__ == "__main__":
     
     credentials_dict = json.loads(credentials_json)
 
-    print("Excel files: ", excel_files)
+     print("Excel files: ", ScraperMain.excel_files)
+
     # Initialize the SavingOnDrive class
     drive_saver = SavingOnDrive(credentials_dict)
     drive_saver.authenticate()
