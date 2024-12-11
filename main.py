@@ -323,7 +323,7 @@ if __name__ == "__main__":
     
     credentials_dict = json.loads(credentials_json)
 
-     print("Excel files: ", ScraperMain.excel_files)
+    print("Excel files: ", ScraperMain.excel_files)
 
     # Initialize the SavingOnDrive class
     drive_saver = SavingOnDrive(credentials_dict)
