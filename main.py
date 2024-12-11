@@ -324,10 +324,15 @@ if __name__ == "__main__":
         raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
     
     credentials_dict = json.loads(credentials_json)
-    
+
+    print("Excel files: ", excel_files)
     # Initialize the SavingOnDrive class
     drive_saver = SavingOnDrive(credentials_dict)
     drive_saver.authenticate()
     
     # Save files to Google Drive
-    drive_saver.save_files(ScraperMain.excel_files)  # Pass the static variable
+    if ScraperMain.excel_files:
+        print(f"Uploading files to Google Drive: {ScraperMain.excel_files}")
+        drive_saver.save_files(ScraperMain.excel_files)
+    else:
+        print("No files to upload to Google Drive.")
