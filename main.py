@@ -293,9 +293,6 @@ if __name__ == "__main__":
         "Soueast": [
             ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
         ],
-        "Exeed": [
-            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
-        ],
         "Forthing": [
             ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
         ],
@@ -310,6 +307,9 @@ if __name__ == "__main__":
         ],
         "Other Cars": [
             ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
+        ],
+        "Exeed": [
+            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
         ],
     }
 
