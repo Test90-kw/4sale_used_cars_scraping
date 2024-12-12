@@ -137,18 +137,18 @@ if __name__ == "__main__":
         # "Jaguar": [
         #     ("https://www.q84sale.com/en/automotive/used-cars/jaguar/{}", 1),
         # ],
-        # "Land Rover": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/land-rover/{}", 7),
-        # ],
-        # "Dodge": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/dodge/{}", 4),
-        # ],
-        # "Jeep": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/jeep/{}", 4),
-        # ],
-        # "Chrysler": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/chrysler/{}", 2),
-        # ],
+        "Land Rover": [
+            ("https://www.q84sale.com/en/automotive/used-cars/land-rover/{}", 7),
+        ],
+        "Dodge": [
+            ("https://www.q84sale.com/en/automotive/used-cars/dodge/{}", 4),
+        ],
+        "Jeep": [
+            ("https://www.q84sale.com/en/automotive/used-cars/jeep/{}", 4),
+        ],
+        "Chrysler": [
+            ("https://www.q84sale.com/en/automotive/used-cars/chrysler/{}", 2),
+        ],
         "Lincoln": [
             ("https://www.q84sale.com/en/automotive/used-cars/lincoln/{}", 1),
         ],
