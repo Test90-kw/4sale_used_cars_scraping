@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from DetailsScraper import DetailsScraping
 from SavingOnDrive import SavingOnDrive
 import json
+import logging
 
 class ScraperMain:
     # Added static variable
@@ -28,26 +29,31 @@ class ScraperMain:
         yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
         print(f"Yesterday's date: {yesterday}")
 
-        for url_template, page_count in urls:
-            for page in range(1, page_count + 1):
-                url = url_template.format(page)
-                print(f"Scraping URL: {url}")
-                try:
-                    scraper = DetailsScraping(url)
-                    car_details = await scraper.get_car_details()
-                    print(f"Found {len(car_details)} car details on {url}")
+        async with async_playwright() as playwright:
+            browser = await playwright.chromium.launch(headless=True)
+            try:
+                for url_template, page_count in urls:
+                    for page in range(1, page_count + 1):
+                        url = url_template.format(page)
+                        print(f"Scraping URL: {url}")
+                        try:
+                            scraper = DetailsScraping(url)
+                            car_details = await scraper.get_car_details()
+                            print(f"Found {len(car_details)} car details on {url}")
 
-                    for detail in car_details:
-                        if detail.get("date_published"):
-                            date_published = detail.get("date_published").split()[0]
-                            if date_published == yesterday:
-                                car_type = detail.get("type", "unknown")
-                                if car_type not in car_data:
-                                    car_data[car_type] = []
-                                car_data[car_type].append(detail)
+                            for detail in car_details:
+                                if detail.get("date_published"):
+                                    date_published = detail.get("date_published").split()[0]
+                                    if date_published == yesterday:
+                                        car_type = detail.get("type", "unknown")
+                                        if car_type not in car_data:
+                                            car_data[car_type] = []
+                                        car_data[car_type].append(detail)
 
-                except Exception as e:
-                    print(f"Error scraping {url}: {e}")
+                        except Exception as e:
+                            print(f"Error scraping {url}: {e}")
+            finally:
+                await browser.close()              
 
         return car_data
 
