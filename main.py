@@ -240,60 +240,61 @@ if __name__ == "__main__":
         "Seat": [
             ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
         ],
-        "Citroen": [
-            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
-        ],
-        "Ssangyong": [
-            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
-        ],
-        "Baic": [
-            ("https://www.q84sale.com/en/automotive/cars/baic/{}", 1),
-        ],
-        "GAC": [
-            ("https://www.q84sale.com/en/automotive/cars/gac/{}", 1),
-        ],
-        "Changan": [
-            ("https://www.q84sale.com/en/automotive/cars/changan/{}", 1),
-        ],
-        "Chery": [
-            ("https://www.q84sale.com/en/automotive/cars/chery-2960/{}", 1),
-        ],
-        "Ineos": [
-            ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
-        ],
-        "MG": [
-            ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
-        ],
-        "Lynk & Co": [
-            ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
-        ],
-        "BYD": [
-            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
-        ],
-        "Lifan": [
-            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
-        ],
-        "DFM": [
-            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
-        ],
-        "Geely": [
-            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
-        ],
-        "Great Wal": [
-            ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
-        ],
-        "Haval": [
-            ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
-        ],
-        "Hongqi": [
-            ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
-        ],
-        "Maxus": [
-            ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
-        ],
-        "Bestune": [
-            ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
-        ],
+        # "Citroen": [
+        #     ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
+        # ],
+        # "Ssangyong": [
+        #     ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
+        # ],
+        # "Baic": [
+        #     ("https://www.q84sale.com/en/automotive/cars/baic/{}", 1),
+        # ],
+        # "GAC": [
+        #     ("https://www.q84sale.com/en/automotive/cars/gac/{}", 1),
+        # ],
+        # "Changan": [
+        #     ("https://www.q84sale.com/en/automotive/cars/changan/{}", 1),
+        # ],
+        # "Chery": [
+        #     ("https://www.q84sale.com/en/automotive/cars/chery-2960/{}", 1),
+        # ],
+        # "Ineos": [
+        #     ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
+        # ],
+        # "MG": [
+        #     ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
+        # ],
+        # "Lynk & Co": [
+        #     ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
+        # ],
+        # "BYD": [
+        #     ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
+        # ],
+        # "Lifan": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
+        # ],
+        # "DFM": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
+        # ],
+        # "Geely": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
+        # ],
+        # "Great Wal": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
+        # ],
+        # "Haval": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
+        # ],
+        # "Hongqi": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
+        # ],
+        # "Maxus": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
+        # ],
+        # "Bestune": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
+        # ],
+        
         # "Soueast": [
         #     ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
         # ],
