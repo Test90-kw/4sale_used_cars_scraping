@@ -32,8 +32,7 @@ class ScraperMain:
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True)
-            try:
-                for url_template, page_count in urls:
+            for url_template, page_count in urls:
                     for page in range(1, page_count + 1):
                         url = url_template.format(page)
                         print(f"Scraping URL: {url}")
@@ -52,9 +51,7 @@ class ScraperMain:
                                         car_data[car_type].append(detail)
 
                         except Exception as e:
-                            print(f"Error scraping {url}: {e}")
-            finally:
-                await browser.close()              
+                            print(f"Error scraping {url}: {e}")         
 
         return car_data
 
