@@ -5,7 +5,11 @@ on:
     - cron: '10 21 * * *' # Runs at 12:05 AM UTC every day
 
   workflow_dispatch:  # Allows manual triggering
-
+  
+concurrency:
+  group: workflow-group
+  cancel-in-progress: true
+  
 jobs:
   scrape:
     runs-on: ubuntu-latest
