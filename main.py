@@ -156,87 +156,87 @@ if __name__ == "__main__":
         "Lincoln": [
             ("https://www.q84sale.com/en/automotive/used-cars/lincoln/{}", 1),
         ],
-        # "Kia": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/kia/{}", 4),
-        # ],
-        # "Honda": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/honda/{}", 3),
-        # ],
-        # "Mitsubishi": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/mitsubishi/{}", 3),
-        # ],
-        # "Hyundai": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/hyundai/{}", 3),
-        # ],
-        # "Genesis": [
-        #     ("https://www.q84sale.com/en/automotive/cars/genesis-1/{}", 1),
-        # ],
-        # "Mazda": [
-        #     ("https://www.q84sale.com/en/automotive/cars/mazda/{}", 2),
-        # ],
-        # "Mini": [
-        #     ("https://www.q84sale.com/en/automotive/cars/mini/{}", 1),
-        # ],
-        # "Peugeot": [
-        #     ("https://www.q84sale.com/en/automotive/cars/peugeot/{}", 1),
-        # ],
-        # "Volvo": [
-        #     ("https://www.q84sale.com/en/automotive/cars/volvo/{}", 1),
-        # ],
-        # "Volkswagen": [
-        #     ("https://www.q84sale.com/en/automotive/cars/volkswagen/{}", 3),
-        # ],
-        # "Bently": [
-        #     ("https://www.q84sale.com/en/automotive/cars/bently/{}", 1),
-        # ],
-        # "Rolls Royce": [
-        #     ("https://www.q84sale.com/en/automotive/cars/rolls-royce/{}", 1),
-        # ],
-        # "Aston Martin": [
-        #     ("https://www.q84sale.com/en/automotive/cars/aston-martin/{}", 1),
-        # ],
-        # "Ferrari": [
-        #     ("https://www.q84sale.com/en/automotive/cars/ferrari/{}", 1),
-        # ],
-        # "Lamborgini": [
-        #     ("https://www.q84sale.com/en/automotive/cars/lamborgini/{}", 1),
-        # ],
-        # "Maserati": [
-        #     ("https://www.q84sale.com/en/automotive/cars/maserati/{}", 1),
-        # ],
-        # "Tesla": [
-        #     ("https://www.q84sale.com/en/automotive/cars/tesla/{}", 1),
-        # ],
-        # "Lotus": [
-        #     ("https://www.q84sale.com/en/automotive/cars/lotus/{}", 1),
-        # ],
-        # "Mclaren": [
-        #     ("https://www.q84sale.com/en/automotive/cars/mclaren/{}", 1),
-        # ],
-        # "Hummer": [
-        #     ("https://www.q84sale.com/en/automotive/cars/hummer/{}", 1),
-        # ],
-        # "Renault": [
-        #     ("https://www.q84sale.com/en/automotive/cars/renault/{}", 1),
-        # ],
-        # "Acura": [
-        #     ("https://www.q84sale.com/en/automotive/cars/acura/{}", 1),
-        # ],
-        # "Subaru": [
-        #     ("https://www.q84sale.com/en/automotive/cars/subaru/{}", 1),
-        # ],
-        # "Suzuki": [
-        #     ("https://www.q84sale.com/en/automotive/cars/suzuki/{}", 2),
-        # ],
-        # "Isuzu": [
-        #     ("https://www.q84sale.com/en/automotive/cars/isuzu/{}", 1),
-        # ],
-        # "Alfa Romeo": [
-        #     ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
-        # ],
-        # "Fiat": [
-        #     ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
-        # ],
+        "Kia": [
+            ("https://www.q84sale.com/en/automotive/used-cars/kia/{}", 4),
+        ],
+        "Honda": [
+            ("https://www.q84sale.com/en/automotive/used-cars/honda/{}", 3),
+        ],
+        "Mitsubishi": [
+            ("https://www.q84sale.com/en/automotive/used-cars/mitsubishi/{}", 3),
+        ],
+        "Hyundai": [
+            ("https://www.q84sale.com/en/automotive/used-cars/hyundai/{}", 3),
+        ],
+        "Genesis": [
+            ("https://www.q84sale.com/en/automotive/cars/genesis-1/{}", 1),
+        ],
+        "Mazda": [
+            ("https://www.q84sale.com/en/automotive/cars/mazda/{}", 2),
+        ],
+        "Mini": [
+            ("https://www.q84sale.com/en/automotive/cars/mini/{}", 1),
+        ],
+        "Peugeot": [
+            ("https://www.q84sale.com/en/automotive/cars/peugeot/{}", 1),
+        ],
+        "Volvo": [
+            ("https://www.q84sale.com/en/automotive/cars/volvo/{}", 1),
+        ],
+        "Volkswagen": [
+            ("https://www.q84sale.com/en/automotive/cars/volkswagen/{}", 3),
+        ],
+        "Bently": [
+            ("https://www.q84sale.com/en/automotive/cars/bently/{}", 1),
+        ],
+        "Rolls Royce": [
+            ("https://www.q84sale.com/en/automotive/cars/rolls-royce/{}", 1),
+        ],
+        "Aston Martin": [
+            ("https://www.q84sale.com/en/automotive/cars/aston-martin/{}", 1),
+        ],
+        "Ferrari": [
+            ("https://www.q84sale.com/en/automotive/cars/ferrari/{}", 1),
+        ],
+        "Lamborgini": [
+            ("https://www.q84sale.com/en/automotive/cars/lamborgini/{}", 1),
+        ],
+        "Maserati": [
+            ("https://www.q84sale.com/en/automotive/cars/maserati/{}", 1),
+        ],
+        "Tesla": [
+            ("https://www.q84sale.com/en/automotive/cars/tesla/{}", 1),
+        ],
+        "Lotus": [
+            ("https://www.q84sale.com/en/automotive/cars/lotus/{}", 1),
+        ],
+        "Mclaren": [
+            ("https://www.q84sale.com/en/automotive/cars/mclaren/{}", 1),
+        ],
+        "Hummer": [
+            ("https://www.q84sale.com/en/automotive/cars/hummer/{}", 1),
+        ],
+        "Renault": [
+            ("https://www.q84sale.com/en/automotive/cars/renault/{}", 1),
+        ],
+        "Acura": [
+            ("https://www.q84sale.com/en/automotive/cars/acura/{}", 1),
+        ],
+        "Subaru": [
+            ("https://www.q84sale.com/en/automotive/cars/subaru/{}", 1),
+        ],
+        "Suzuki": [
+            ("https://www.q84sale.com/en/automotive/cars/suzuki/{}", 2),
+        ],
+        "Isuzu": [
+            ("https://www.q84sale.com/en/automotive/cars/isuzu/{}", 1),
+        ],
+        "Alfa Romeo": [
+            ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
+        ],
+        "Fiat": [
+            ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
+        ],
         # "Seat": [
         #     ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
         # ],
