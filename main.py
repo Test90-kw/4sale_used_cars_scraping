@@ -102,30 +102,30 @@ class ScraperMain:
 if __name__ == "__main__":
 
     brand_data = {
-        # "Toyota": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars-1/toyota/{}", 18),
-        # ],
-        # "Lexus": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/lexus/{}", 6),
-        # ],
-        # "Chevrolet": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/chevrolet/{}", 15),
-        # ],
-        # "Ford": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/ford/{}", 9),
-        # ],
-        # "Cadillac": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/cadillac/{}", 3),
-        # ],
-        # "GMC": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/gmc/{}", 9),
-        # ],
-        # "Mercury": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/mercury/{}", 1),
-        # ],
-        # "Nissan": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/nissan/{}", 10),
-        # ],
+        "Toyota": [
+            ("https://www.q84sale.com/en/automotive/used-cars-1/toyota/{}", 18),
+        ],
+        "Lexus": [
+            ("https://www.q84sale.com/en/automotive/used-cars/lexus/{}", 6),
+        ],
+        "Chevrolet": [
+            ("https://www.q84sale.com/en/automotive/used-cars/chevrolet/{}", 15),
+        ],
+        "Ford": [
+            ("https://www.q84sale.com/en/automotive/used-cars/ford/{}", 9),
+        ],
+        "Cadillac": [
+            ("https://www.q84sale.com/en/automotive/used-cars/cadillac/{}", 3),
+        ],
+        "GMC": [
+            ("https://www.q84sale.com/en/automotive/used-cars/gmc/{}", 9),
+        ],
+        "Mercury": [
+            ("https://www.q84sale.com/en/automotive/used-cars/mercury/{}", 1),
+        ],
+        "Nissan": [
+            ("https://www.q84sale.com/en/automotive/used-cars/nissan/{}", 10),
+        ],
         # "Infiniti": [
         #     ("https://www.q84sale.com/en/automotive/used-cars/infiniti/{}", 2),
         # ],
