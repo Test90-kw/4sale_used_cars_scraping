@@ -222,21 +222,21 @@ if __name__ == "__main__":
         "Acura": [
             ("https://www.q84sale.com/en/automotive/cars/acura/{}", 1),
         ],
-        "Subaru": [
-            ("https://www.q84sale.com/en/automotive/cars/subaru/{}", 1),
-        ],
-        "Suzuki": [
-            ("https://www.q84sale.com/en/automotive/cars/suzuki/{}", 2),
-        ],
-        "Isuzu": [
-            ("https://www.q84sale.com/en/automotive/cars/isuzu/{}", 1),
-        ],
-        "Alfa Romeo": [
-            ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
-        ],
-        "Fiat": [
-            ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
-        ],
+        # "Subaru": [
+        #     ("https://www.q84sale.com/en/automotive/cars/subaru/{}", 1),
+        # ],
+        # "Suzuki": [
+        #     ("https://www.q84sale.com/en/automotive/cars/suzuki/{}", 2),
+        # ],
+        # "Isuzu": [
+        #     ("https://www.q84sale.com/en/automotive/cars/isuzu/{}", 1),
+        # ],
+        # "Alfa Romeo": [
+        #     ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
+        # ],
+        # "Fiat": [
+        #     ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
+        # ],
         # "Seat": [
         #     ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
         # ],
