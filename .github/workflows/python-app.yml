@@ -35,6 +35,13 @@ jobs:
           pip install playwright
           python -m playwright install
 
+      - name: Fix PhantomJS Issue
+        run: |
+          npm uninstall phantomjs-prebuilt
+          npm install phantomjs-prebuilt@2.1.13
+          npm cache clear --force
+          npm install
+
       # - name: Set GCLOUD_KEY_JSON
       #   env:
       #     GCLOUD_KEY_JSON: ${{ secrets.GCLOUD_KEY_JSON }}
