@@ -133,57 +133,57 @@ class ScraperMain:
 if __name__ == "__main__":
 
     brand_data = {
-        # "Toyota": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars-1/toyota/{}", 18),
-        # ],
-        # "Lexus": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/lexus/{}", 6),
-        # ],
-        # "Chevrolet": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/chevrolet/{}", 15),
-        # ],
-        # "Ford": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/ford/{}", 9),
-        # ],
-        # "Cadillac": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/cadillac/{}", 3),
-        # ],
-        # "GMC": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/gmc/{}", 9),
-        # ],
-        # "Mercury": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/mercury/{}", 1),
-        # ],
-        # "Nissan": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/nissan/{}", 10),
-        # ],
-        # "Infiniti": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/infiniti/{}", 2),
-        # ],
-        # "Mercedes": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/mercedes/{}", 9),
-        # ],
-        # "BMW": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/bmw/{}", 7),
-        # ],
-        # "Porsche": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/porsche/{}", 4),
-        # ],
-        # "Jaguar": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/jaguar/{}", 1),
-        # ],
-        # "Land Rover": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/land-rover/{}", 7),
-        # ],
-        # "Dodge": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/dodge/{}", 4),
-        # ],
-        # "Jeep": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/jeep/{}", 4),
-        # ],
-        # "Chrysler": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/chrysler/{}", 2),
-        # ],
+        "Toyota": [
+            ("https://www.q84sale.com/en/automotive/used-cars-1/toyota/{}", 18),
+        ],
+        "Lexus": [
+            ("https://www.q84sale.com/en/automotive/used-cars/lexus/{}", 6),
+        ],
+        "Chevrolet": [
+            ("https://www.q84sale.com/en/automotive/used-cars/chevrolet/{}", 15),
+        ],
+        "Ford": [
+            ("https://www.q84sale.com/en/automotive/used-cars/ford/{}", 9),
+        ],
+        "Cadillac": [
+            ("https://www.q84sale.com/en/automotive/used-cars/cadillac/{}", 3),
+        ],
+        "GMC": [
+            ("https://www.q84sale.com/en/automotive/used-cars/gmc/{}", 9),
+        ],
+        "Mercury": [
+            ("https://www.q84sale.com/en/automotive/used-cars/mercury/{}", 1),
+        ],
+        "Nissan": [
+            ("https://www.q84sale.com/en/automotive/used-cars/nissan/{}", 10),
+        ],
+        "Infiniti": [
+            ("https://www.q84sale.com/en/automotive/used-cars/infiniti/{}", 2),
+        ],
+        "Mercedes": [
+            ("https://www.q84sale.com/en/automotive/used-cars/mercedes/{}", 9),
+        ],
+        "BMW": [
+            ("https://www.q84sale.com/en/automotive/used-cars/bmw/{}", 7),
+        ],
+        "Porsche": [
+            ("https://www.q84sale.com/en/automotive/used-cars/porsche/{}", 4),
+        ],
+        "Jaguar": [
+            ("https://www.q84sale.com/en/automotive/used-cars/jaguar/{}", 1),
+        ],
+        "Land Rover": [
+            ("https://www.q84sale.com/en/automotive/used-cars/land-rover/{}", 7),
+        ],
+        "Dodge": [
+            ("https://www.q84sale.com/en/automotive/used-cars/dodge/{}", 4),
+        ],
+        "Jeep": [
+            ("https://www.q84sale.com/en/automotive/used-cars/jeep/{}", 4),
+        ],
+        "Chrysler": [
+            ("https://www.q84sale.com/en/automotive/used-cars/chrysler/{}", 2),
+        ],
         "Lincoln": [
             ("https://www.q84sale.com/en/automotive/used-cars/lincoln/{}", 1),
         ],
