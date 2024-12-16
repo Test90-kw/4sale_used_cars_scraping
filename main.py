@@ -80,11 +80,13 @@ class ScraperMain:
 
     async def scrape_all_brands(self):
         def chunks(data, size):
-            tasks = []
             """Helper function to split dictionary into chunks of a given size."""
             iterator = iter(data)
-            for first in iterator:
-                yield {first: data[first], **dict(islice(iterator, size - 1))}
+            while True:
+                chunk = {key: data[key] for key, _ in zip(iterator, range(size))}
+                if not chunk:
+                    break
+                yield chunk
 
         brand_chunks = list(chunks(self.brand_data, 7))
         for i, chunk in enumerate(brand_chunks, 1):
@@ -107,6 +109,7 @@ class ScraperMain:
                     print(f"No data to save for {brand_name}")
 
             print(f"Completed processing chunk {i}/{len(brand_chunks)}")
+
     
     def save_to_excel(self, brand_name, car_data):
         excel_file = f"{brand_name}.xlsx"
