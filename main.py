@@ -187,12 +187,12 @@ if __name__ == "__main__":
         "Lincoln": [
             ("https://www.q84sale.com/en/automotive/used-cars/lincoln/{}", 1),
         ],
-        # "Kia": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/kia/{}", 4),
-        # ],
-        # "Honda": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/honda/{}", 3),
-        # ],
+        "Kia": [
+            ("https://www.q84sale.com/en/automotive/used-cars/kia/{}", 4),
+        ],
+        "Honda": [
+            ("https://www.q84sale.com/en/automotive/used-cars/honda/{}", 3),
+        ],
         # "Mitsubishi": [
         #     ("https://www.q84sale.com/en/automotive/used-cars/mitsubishi/{}", 3),
         # ],
