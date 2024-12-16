@@ -11,6 +11,7 @@ from DetailsScraper import DetailsScraping
 from SavingOnDrive import SavingOnDrive
 import json
 import logging
+from itertools import islice
 
 class ScraperMain:
     # Added static variable
