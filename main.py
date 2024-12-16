@@ -55,28 +55,57 @@ class ScraperMain:
 
         return car_data
 
+    # async def scrape_all_brands(self):
+    #     tasks = []
+    #     for brand_name, urls in self.brand_data.items():
+    #         tasks.append(self.scrape_brand(brand_name, urls))
+
+    #     results = await asyncio.gather(*tasks, return_exceptions=False)
+
+    #     for brand_name, car_data in zip(self.brand_data.keys(), results):
+    #         print(f"Data collected for {brand_name}: {car_data}")
+
+    #         if car_data:
+    #             print(f"Saving data for {brand_name}")
+    #             try:
+    #                 # Save file and update the static variable
+    #                 excel_file = self.save_to_excel(brand_name, car_data)
+    #                 if excel_file:
+    #                     ScraperMain.excel_files.append(excel_file)
+    #             except Exception as e:
+    #                 print(f"Error saving data for {brand_name}: {e}")
+    #         else:
+    #             print(f"No data to save for {brand_name}")
+
     async def scrape_all_brands(self):
-        tasks = []
-        for brand_name, urls in self.brand_data.items():
-            tasks.append(self.scrape_brand(brand_name, urls))
+        def chunks(data, size):
+            """Helper function to split dictionary into chunks of a given size."""
+            iterator = iter(data)
+            for first in iterator:
+                yield {first: data[first], **dict(islice(iterator, size - 1))}
 
-        results = await asyncio.gather(*tasks, return_exceptions=False)
+        brand_chunks = list(chunks(self.brand_data, 7))
+        for i, chunk in enumerate(brand_chunks, 1):
+            print(f"Processing chunk {i}/{len(brand_chunks)}: {list(chunk.keys())}")
 
-        for brand_name, car_data in zip(self.brand_data.keys(), results):
-            print(f"Data collected for {brand_name}: {car_data}")
+            tasks = [self.scrape_brand(brand_name, urls) for brand_name, urls in chunk.items()]
+            results = await asyncio.gather(*tasks, return_exceptions=False)
 
-            if car_data:
-                print(f"Saving data for {brand_name}")
-                try:
-                    # Save file and update the static variable
-                    excel_file = self.save_to_excel(brand_name, car_data)
-                    if excel_file:
-                        ScraperMain.excel_files.append(excel_file)
-                except Exception as e:
-                    print(f"Error saving data for {brand_name}: {e}")
-            else:
-                print(f"No data to save for {brand_name}")
+            for brand_name, car_data in zip(chunk.keys(), results):
+                print(f"Data collected for {brand_name}: {car_data}")
+                if car_data:
+                    print(f"Saving data for {brand_name}")
+                    try:
+                        excel_file = self.save_to_excel(brand_name, car_data)
+                        if excel_file:
+                            ScraperMain.excel_files.append(excel_file)
+                    except Exception as e:
+                        print(f"Error saving data for {brand_name}: {e}")
+                else:
+                    print(f"No data to save for {brand_name}")
 
+            print(f"Completed processing chunk {i}/{len(brand_chunks)}")
+    
     def save_to_excel(self, brand_name, car_data):
         excel_file = f"{brand_name}.xlsx"
         print(f"Saving data to {excel_file}")
