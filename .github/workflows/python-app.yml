@@ -2,7 +2,7 @@ name: Scraper Workflow
 
 on:
   schedule:
-    - cron: '10 22 * * *' # Runs every day
+    - cron: '15 0 * * *' # Runs every day
 
   workflow_dispatch:  # Allows manual triggering
   
@@ -13,7 +13,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 400
+    timeout-minutes: 700
 
     steps:
       - name: Checkout Repository
