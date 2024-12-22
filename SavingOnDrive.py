@@ -4,7 +4,9 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from datetime import datetime, timedelta
-
+import ssl
+import time
+from googleapiclient.errors import HttpError
 
 class SavingOnDrive:
     def __init__(self, credentials_dict):
@@ -17,31 +19,58 @@ class SavingOnDrive:
         self.service = build('drive', 'v3', credentials=creds)
 
     def create_folder(self, folder_name, parent_folder_id=None):
-        query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder'"
-        if parent_folder_id:
-            query += f" and '{parent_folder_id}' in parents"
+        try:
+            query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder'"
+            if parent_folder_id:
+                query += f" and '{parent_folder_id}' in parents"
 
-        results = self.service.files().list(q=query, spaces='drive').execute()
-        folders = results.get('files', [])
+            results = self.service.files().list(q=query, spaces='drive').execute()
+            folders = results.get('files', [])
 
-        if folders:
-            return folders[0].get('id')
+            if folders:
+                print(f"Folder '{folder_name}' already exists.")
+                return folders[0].get('id')
 
-        file_metadata = {
-            'name': folder_name,
-            'mimeType': 'application/vnd.google-apps.folder'
-        }
-        if parent_folder_id:
-            file_metadata['parents'] = [parent_folder_id]
+            file_metadata = {
+                'name': folder_name,
+                'mimeType': 'application/vnd.google-apps.folder'
+            }
+            if parent_folder_id:
+                file_metadata['parents'] = [parent_folder_id]
 
-        folder = self.service.files().create(body=file_metadata, fields='id').execute()
-        return folder.get('id')
+            folder = self.service.files().create(body=file_metadata, fields='id').execute()
+            print(f"Created folder '{folder_name}'.")
+            return folder.get('id')
+        except Exception as e:
+            print(f"Error creating folder '{folder_name}': {e}")
+            return None
 
     def upload_file(self, file_name, folder_id):
         file_metadata = {'name': file_name, 'parents': [folder_id]}
         media = MediaFileUpload(file_name, resumable=True)
-        file = self.service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-        return file.get('id')
+        retries = 5
+
+        for i in range(retries):
+            try:
+                file = self.service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+                print(f"Uploaded {file_name} successfully.")
+                return file.get('id')
+            except ssl.SSLEOFError as ssl_error:
+                print(f"SSL Error while uploading {file_name}. Retrying in {2 ** i} seconds...")
+                time.sleep(2 ** i)
+            except HttpError as http_error:
+                if http_error.resp.status in [403, 500, 503]:
+                    print(f"HTTP Error {http_error.resp.status} while uploading {file_name}. Retrying {i+1}/{retries}...")
+                    time.sleep(2 ** i)
+                else:
+                    print(f"Upload failed due to HTTP Error: {http_error}")
+                    break
+            except Exception as e:
+                print(f"Unexpected error during upload of {file_name}: {e}")
+                break
+        else:
+            print(f"Failed to upload {file_name} after {retries} attempts.")
+            return None
 
     def save_files(self, files):
         parent_folder_id = '11pG4Jwy1gJUbz7cILT6sfzmLD5f75nqU'
