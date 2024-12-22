@@ -288,91 +288,91 @@ if __name__ == "__main__":
         # "Isuzu": [
         #     ("https://www.q84sale.com/en/automotive/cars/isuzu/{}", 1),
         # ],
-        # "Alfa Romeo": [
-        #     ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
-        # ],
-        # "Fiat": [
-        #     ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
-        # ],
-        # "Seat": [
-        #     ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
-        # ],
-        # "Citroen": [
-        #     ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
-        # ],
-        # "Ssangyong": [
-        #     ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
-        # ],
-        # "Baic": [
-        #     ("https://www.q84sale.com/en/automotive/cars/baic/{}", 1),
-        # ],
-        # "GAC": [
-        #     ("https://www.q84sale.com/en/automotive/cars/gac/{}", 1),
-        # ],
-        # "Changan": [
-        #     ("https://www.q84sale.com/en/automotive/cars/changan/{}", 1),
-        # ],
-        # "Chery": [
-        #     ("https://www.q84sale.com/en/automotive/cars/chery-2960/{}", 1),
-        # ],
-        # "Ineos": [
-        #     ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
-        # ],
-        # "MG": [
-        #     ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
-        # ],
-        # "Lynk & Co": [
-        #     ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
-        # ],
-        # "BYD": [
-        #     ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
-        # ],
-        # "Lifan": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
-        # ],
-        # "DFM": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
-        # ],
-        # "Geely": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
-        # ],
-        # "Great Wal": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
-        # ],
-        # "Haval": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
-        # ],
-        # "Hongqi": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
-        # ],
-        # "Maxus": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
-        # ],
-        # "Bestune": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
-        # ],
+        "Alfa Romeo": [
+            ("https://www.q84sale.com/en/automotive/cars/alfa-romeo/{}", 1),
+        ],
+        "Fiat": [
+            ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
+        ],
+        "Seat": [
+            ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
+        ],
+        "Citroen": [
+            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
+        ],
+        "Ssangyong": [
+            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
+        ],
+        "Baic": [
+            ("https://www.q84sale.com/en/automotive/cars/baic/{}", 1),
+        ],
+        "GAC": [
+            ("https://www.q84sale.com/en/automotive/cars/gac/{}", 1),
+        ],
+        "Changan": [
+            ("https://www.q84sale.com/en/automotive/cars/changan/{}", 1),
+        ],
+        "Chery": [
+            ("https://www.q84sale.com/en/automotive/cars/chery-2960/{}", 1),
+        ],
+        "Ineos": [
+            ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
+        ],
+        "MG": [
+            ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
+        ],
+        "Lynk & Co": [
+            ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
+        ],
+        "BYD": [
+            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
+        ],
+        "Lifan": [
+            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
+        ],
+        "DFM": [
+            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
+        ],
+        "Geely": [
+            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
+        ],
+        "Great Wal": [
+            ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
+        ],
+        "Haval": [
+            ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
+        ],
+        "Hongqi": [
+            ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
+        ],
+        "Maxus": [
+            ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
+        ],
+        "Bestune": [
+            ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
+        ],
         
-        # "Soueast": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
-        # ],
-        # "Forthing": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
-        # ],
-        # "Golf Carts EV": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/golf-carts-ev/{}", 1),
-        # ],
-        # "Jetour": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/jetour/{}", 1),
-        # ],
-        # "Special Needs Vehicles": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
-        # ],
-        # "Other Cars": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
-        # ],
-        # "Exeed": [
-        #     ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
-        # ],
+        "Soueast": [
+            ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
+        ],
+        "Forthing": [
+            ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
+        ],
+        "Golf Carts EV": [
+            ("https://www.q84sale.com/en/automotive/used-cars/golf-carts-ev/{}", 1),
+        ],
+        "Jetour": [
+            ("https://www.q84sale.com/en/automotive/used-cars/jetour/{}", 1),
+        ],
+        "Special Needs Vehicles": [
+            ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
+        ],
+        "Other Cars": [
+            ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
+        ],
+        "Exeed": [
+            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
+        ],
     }
 
     scraper = ScraperMain(brand_data)
