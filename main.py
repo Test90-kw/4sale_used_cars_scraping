@@ -378,22 +378,22 @@ if __name__ == "__main__":
     scraper = ScraperMain(brand_data)
     asyncio.run(scraper.scrape_all_brands())
 
-    # Load the service account JSON key from the GitHub secret
-    credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
-    if not credentials_json:
-        raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
+    # # Load the service account JSON key from the GitHub secret
+    # credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
+    # if not credentials_json:
+    #     raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
     
-    credentials_dict = json.loads(credentials_json)
+    # credentials_dict = json.loads(credentials_json)
 
-    print("Excel files: ", ScraperMain.excel_files)
+    # print("Excel files: ", ScraperMain.excel_files)
 
-    # Initialize the SavingOnDrive class
-    drive_saver = SavingOnDrive(credentials_dict)
-    drive_saver.authenticate()
+    # # Initialize the SavingOnDrive class
+    # drive_saver = SavingOnDrive(credentials_dict)
+    # drive_saver.authenticate()
     
-    # Save files to Google Drive
-    if ScraperMain.excel_files:
-        print(f"Uploading files to Google Drive: {ScraperMain.excel_files}")
-        drive_saver.save_files(ScraperMain.excel_files)
-    else:
-        print("No files to upload to Google Drive.")
+    # # Save files to Google Drive
+    # if ScraperMain.excel_files:
+    #     print(f"Uploading files to Google Drive: {ScraperMain.excel_files}")
+    #     drive_saver.save_files(ScraperMain.excel_files)
+    # else:
+    #     print("No files to upload to Google Drive.")
