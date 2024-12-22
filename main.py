@@ -89,26 +89,49 @@ class ScraperMain:
                 yield chunk
 
         brand_chunks = list(chunks(self.brand_data, 7))
+        
+        credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
+        if not credentials_json:
+            raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found.")
+        credentials_dict = json.loads(credentials_json)
+        drive_saver = SavingOnDrive(credentials_dict)
+        drive_saver.authenticate()
+        
         for i, chunk in enumerate(brand_chunks, 1):
             print(f"Processing chunk {i}/{len(brand_chunks)}: {list(chunk.keys())}")
 
             tasks = [self.scrape_brand(brand_name, urls) for brand_name, urls in chunk.items()]
             results = await asyncio.gather(*tasks, return_exceptions=False)
-
+            
+            chunk_files = []
             for brand_name, car_data in zip(chunk.keys(), results):
-                print(f"Data collected for {brand_name}: {car_data}")
                 if car_data:
-                    print(f"Saving data for {brand_name}")
                     try:
                         excel_file = self.save_to_excel(brand_name, car_data)
                         if excel_file:
-                            ScraperMain.excel_files.append(excel_file)
+                            chunk_files.append(excel_file)
                     except Exception as e:
                         print(f"Error saving data for {brand_name}: {e}")
-                else:
-                    print(f"No data to save for {brand_name}")
 
-            print(f"Completed processing chunk {i}/{len(brand_chunks)}")
+            if chunk_files:
+                drive_saver.save_files(chunk_files)
+
+            print(f"Completed processing and uploading chunk {i}/{len(brand_chunks)}")
+            
+            # for brand_name, car_data in zip(chunk.keys(), results):
+            #     print(f"Data collected for {brand_name}: {car_data}")
+            #     if car_data:
+            #         print(f"Saving data for {brand_name}")
+            #         try:
+            #             excel_file = self.save_to_excel(brand_name, car_data)
+            #             if excel_file:
+            #                 ScraperMain.excel_files.append(excel_file)
+            #         except Exception as e:
+            #             print(f"Error saving data for {brand_name}: {e}")
+            #     else:
+            #         print(f"No data to save for {brand_name}")
+
+            # print(f"Completed processing chunk {i}/{len(brand_chunks)}")
 
     
     def save_to_excel(self, brand_name, car_data):
