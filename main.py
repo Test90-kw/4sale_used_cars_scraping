@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from playwright.async_api import async_playwright
 from datetime import datetime, timedelta
-from DetailsScraping import DetailsScraping
+from DetailsScraper import DetailsScraping
 from SavingOnDrive import SavingOnDrive
 import json
 import logging
