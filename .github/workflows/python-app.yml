@@ -56,6 +56,14 @@ jobs:
           CAR_GCLOUD_KEY_JSON: ${{ secrets.CAR_GCLOUD_KEY_JSON }}
         run: |
           python main.py
+      
+      - name: Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraper-logs
+          path: scraper.log
+      
       - name: Cleanup
         run: |
           # Any cleanup steps (optional)
