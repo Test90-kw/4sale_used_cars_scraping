@@ -282,6 +282,8 @@ if __name__ == "__main__":
         "Fiat": [
             ("https://www.q84sale.com/en/automotive/cars/fiat/{}", 1),
         ],
+    }
+    brand_data_2 = {
         "Seat": [
             ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
         ],
@@ -339,7 +341,6 @@ if __name__ == "__main__":
         "Bestune": [
             ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
         ],
-        
         "Soueast": [
             ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
         ],
@@ -362,8 +363,12 @@ if __name__ == "__main__":
             ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
         ],
     }
-    scraper = ScraperMain(brand_data)  # brand_data from your original code
+    
+    scraper = ScraperMain(brand_data)
     asyncio.run(scraper.scrape_all_brands())
+    asyncio.sleep(10)
+    scraper2 = ScraperMain(brand_data_2)
+    asyncio.run(scraper2.scrape_all_brands())
 
 # import asyncio
 # import aiofiles
