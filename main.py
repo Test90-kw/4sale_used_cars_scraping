@@ -73,45 +73,81 @@ class ScraperMain:
         return car_data
 
     async def scrape_all_brands(self):
-        # Split brands into chunks
+        """
+        Process all brands in chunks with concurrent execution
+        """
+        # Split brands into chunks (Reduced chunk size to 3)
+        self.chunk_size = 3
         brand_chunks = [
             list(self.brand_data.items())[i:i + self.chunk_size]
             for i in range(0, len(self.brand_data), self.chunk_size)
         ]
 
+        # Limit concurrent operations (Reduced to 2)
+        semaphore = asyncio.Semaphore(2)
+
+        # Setup Google Drive
+        try:
+            credentials_json = os.environ.get('CAR_GCLOUD_KEY_JSON')
+            if not credentials_json:
+                raise EnvironmentError("CAR_GCLOUD_KEY_JSON environment variable not found")
+            credentials_dict = json.loads(credentials_json)
+            drive_saver = SavingOnDrive(credentials_dict)
+            drive_saver.authenticate()
+        except Exception as e:
+            logging.error(f"Failed to setup Google Drive: {str(e)}")
+            return
+
         for chunk_index, chunk in enumerate(brand_chunks, 1):
-            self.logger.info(f"Processing chunk {chunk_index}/{len(brand_chunks)}")
-
+            logging.info(f"Processing chunk {chunk_index}/{len(brand_chunks)}")
+            
+            # Create tasks for each brand in the chunk
+            tasks = []
+            for brand_name, brand_urls in chunk:
+                task = asyncio.create_task(self.scrape_brand(brand_name, brand_urls, semaphore))
+                tasks.append((brand_name, task))
+                await asyncio.sleep(2)  # Delay between each scrape (2 seconds)
+            
+            # Process all brands in the chunk concurrently
             saved_files = []
-            semaphore = asyncio.Semaphore(self.max_concurrent_brands)  # Limit concurrent tasks
+            for brand_name, task in tasks:
+                try:
+                    car_data = await task
+                    if car_data:
+                        excel_file = self.save_to_excel(brand_name, car_data)
+                        if excel_file:
+                            saved_files.append(excel_file)
+                            logging.info(f"Successfully saved data for {brand_name}")
+                except Exception as e:
+                    logging.error(f"Error processing {brand_name}: {str(e)}")
 
-            tasks = [
-                self.scrape_brand(brand_name, brand_url, semaphore)
-                for brand_name, brand_url in chunk
-            ]
-        
-            results = await asyncio.gather(*tasks)
-
-            for brand_name, data in zip(chunk, results):
-                if data:
-                    filename = f"{brand_name[0]}_{datetime.now().strftime('%Y%m%d')}.xlsx"
-                    self.save_to_excel(brand_name[0], data)
-                    self.logger.info(f"Successfully saved data for {brand_name[0]}")
-                    saved_files.append(filename)
-
+            # Upload files to Google Drive immediately after each chunk
             if saved_files:
                 try:
-                    folder_name = datetime.now().strftime('%Y-%m-%d')
-                    upload_files_to_drive(self.drive_service, saved_files, folder_name)
-                    self.logger.info(f"Successfully uploaded {len(saved_files)} files to Google Drive")
+                    drive_saver.save_files(saved_files)
+                    logging.info(f"Successfully uploaded {len(saved_files)} files to Google Drive")
+                    
+                    # Clean up local files right after upload
                     for file in saved_files:
-                        os.remove(file)
-                        self.logger.info(f"Cleaned up local file: {file}")
+                        try:
+                            os.remove(file)
+                            logging.info(f"Cleaned up local file: {file}")
+                        except Exception as e:
+                            logging.error(f"Error cleaning up {file}: {str(e)}")
                 except Exception as e:
-                    self.logger.error(f"Error uploading files to Drive: {str(e)}")
+                    logging.error(f"Error uploading files to Google Drive: {str(e)}")
 
+            # Add a delay between chunks (Increased to 20 seconds)
             if chunk_index < len(brand_chunks):
-                await asyncio.sleep(10)
+                await asyncio.sleep(20)
+
+        # Ensure browser resources are cleaned up
+        try:
+            await self.browser.close()
+            logging.info("Browser resources cleaned up successfully")
+        except Exception as e:
+            logging.error(f"Error closing browser: {str(e)}")
+
 
     def save_to_excel(self, brand_name: str, car_data: Dict) -> str:
         excel_file = f"{brand_name}_{datetime.now().strftime('%Y%m%d')}.xlsx"
