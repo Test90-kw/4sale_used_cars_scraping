@@ -15,6 +15,7 @@ class ScraperMain:
         self.brand_data = brand_data
         self.chunk_size = 5
         self.max_concurrent_brands = 3
+        self.logger = logging.getLogger(__name__)
         self.setup_logging()
 
     def setup_logging(self):
@@ -27,12 +28,13 @@ class ScraperMain:
                 logging.FileHandler('scraper.log')
             ]
         )
+        self.logger.setLevel(logging.INFO)
 
     async def scrape_brand(self, brand_name: str, urls: List[Tuple[str, int]], semaphore: asyncio.Semaphore) -> Dict:
-        logging.info(f"Starting to scrape {brand_name}")
+        self.logger.info(f"Starting to scrape {brand_name}")
         car_data = {}
         yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-        
+
         async with semaphore:
             try:
                 async with async_playwright() as playwright:
@@ -41,7 +43,7 @@ class ScraperMain:
                         viewport={'width': 1920, 'height': 1080},
                         user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                     )
-                    
+
                     for url_template, page_count in urls:
                         for page in range(1, page_count + 1):
                             url = url_template.format(page)
@@ -49,26 +51,25 @@ class ScraperMain:
                                 try:
                                     scraper = DetailsScraping(url)
                                     car_details = await scraper.get_car_details()
-                                    
+
                                     for detail in car_details:
                                         if detail.get("date_published", "").split()[0] == yesterday:
                                             car_type = detail.get("type", "unknown")
                                             car_data.setdefault(car_type, []).append(detail)
-                                            
+
                                     break  # Success, exit retry loop
                                 except Exception as e:
-                                    logging.error(f"Attempt {attempt + 1} failed for {url}: {str(e)}")
+                                    self.logger.error(f"Attempt {attempt + 1} failed for {url}: {str(e)}")
                                     if attempt == 2:  # Last attempt
-                                        logging.error(f"Failed to scrape {url} after 3 attempts")
+                                        self.logger.error(f"Failed to scrape {url} after 3 attempts")
                                     else:
                                         await asyncio.sleep(5)  # Wait before retry
-                                        
-                    await page.close()
+
                     await context.close()
                     await browser.close()
             except Exception as e:
-                logging.error(f"Error processing brand {brand_name}: {str(e)}")
-                
+                self.logger.error(f"Error processing brand {brand_name}: {str(e)}")
+
         return car_data
 
     async def scrape_all_brands(self):
@@ -80,45 +81,39 @@ class ScraperMain:
 
         for chunk_index, chunk in enumerate(brand_chunks, 1):
             self.logger.info(f"Processing chunk {chunk_index}/{len(brand_chunks)}")
-            
-            # Process each brand in the chunk
+
             saved_files = []
             for brand_name, brand_url in chunk:
                 self.logger.info(f"Starting to scrape {brand_name}")
                 try:
                     scraper = CarScraper(brand_url, brand_name)
                     data = await scraper.scrape_cars()
-                    
+
                     if data:
-                        # Save to Excel
                         filename = f"{brand_name}_{datetime.now().strftime('%Y%m%d')}.xlsx"
-                        save_to_excel(data, filename)
+                        self.save_to_excel(brand_name, data)
                         self.logger.info(f"Successfully saved data for {brand_name}")
                         saved_files.append(filename)
                 except Exception as e:
                     self.logger.error(f"Error processing {brand_name}: {str(e)}")
 
-            # Upload files for this chunk immediately
             if saved_files:
                 try:
                     folder_name = datetime.now().strftime('%Y-%m-%d')
                     upload_files_to_drive(self.drive_service, saved_files, folder_name)
                     self.logger.info(f"Successfully uploaded {len(saved_files)} files to Google Drive")
-                    
-                    # Clean up local files after successful upload
                     for file in saved_files:
                         os.remove(file)
                         self.logger.info(f"Cleaned up local file: {file}")
                 except Exception as e:
                     self.logger.error(f"Error uploading files to Drive: {str(e)}")
 
-            # Add a small delay before processing the next chunk
             if chunk_index < len(brand_chunks):
                 await asyncio.sleep(10)
 
     def save_to_excel(self, brand_name: str, car_data: Dict) -> str:
         excel_file = f"{brand_name}_{datetime.now().strftime('%Y%m%d')}.xlsx"
-        
+
         try:
             with pd.ExcelWriter(excel_file, engine="openpyxl") as writer:
                 for car_type, details in car_data.items():
@@ -128,9 +123,9 @@ class ScraperMain:
                         df.to_excel(writer, sheet_name=sheet_name, index=False)
             return excel_file
         except Exception as e:
-            logging.error(f"Error saving Excel file {excel_file}: {str(e)}")
+            self.logger.error(f"Error saving Excel file {excel_file}: {str(e)}")
             return None
-
+            
 if __name__ == "__main__":
     brand_data = {
         "Toyota": [
