@@ -14,9 +14,11 @@ class ScraperMain:
     def __init__(self, brand_data: Dict[str, List[Tuple[str, int]]]):
         self.brand_data = brand_data
         self.chunk_size = 5
+        self.max_concurrent_brands = 3
         self.setup_logging()
 
     def setup_logging(self):
+        """Initialize logging configuration"""
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',
@@ -26,7 +28,7 @@ class ScraperMain:
             ]
         )
 
-    async def scrape_brand(self, brand_name: str, urls: List[Tuple[str, int]], semaphore: asyncio.Semaphore):
+    async def scrape_brand(self, brand_name: str, urls: List[Tuple[str, int]], semaphore: asyncio.Semaphore) -> Dict:
         logging.info(f"Starting to scrape {brand_name}")
         car_data = {}
         yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
@@ -61,6 +63,7 @@ class ScraperMain:
                                     else:
                                         await asyncio.sleep(5)  # Wait before retry
                                         
+                    await page.close()
                     await context.close()
                     await browser.close()
             except Exception as e:
