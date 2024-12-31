@@ -83,19 +83,21 @@ class ScraperMain:
             self.logger.info(f"Processing chunk {chunk_index}/{len(brand_chunks)}")
 
             saved_files = []
-            for brand_name, brand_url in chunk:
-                self.logger.info(f"Starting to scrape {brand_name}")
-                try:
-                    scraper = CarScraper(brand_url, brand_name)
-                    data = await scraper.scrape_cars()
+            semaphore = asyncio.Semaphore(self.max_concurrent_brands)  # Limit concurrent tasks
 
-                    if data:
-                        filename = f"{brand_name}_{datetime.now().strftime('%Y%m%d')}.xlsx"
-                        self.save_to_excel(brand_name, data)
-                        self.logger.info(f"Successfully saved data for {brand_name}")
-                        saved_files.append(filename)
-                except Exception as e:
-                    self.logger.error(f"Error processing {brand_name}: {str(e)}")
+            tasks = [
+                self.scrape_brand(brand_name, brand_url, semaphore)
+                for brand_name, brand_url in chunk
+            ]
+        
+            results = await asyncio.gather(*tasks)
+
+            for brand_name, data in zip(chunk, results):
+                if data:
+                    filename = f"{brand_name[0]}_{datetime.now().strftime('%Y%m%d')}.xlsx"
+                    self.save_to_excel(brand_name[0], data)
+                    self.logger.info(f"Successfully saved data for {brand_name[0]}")
+                    saved_files.append(filename)
 
             if saved_files:
                 try:
