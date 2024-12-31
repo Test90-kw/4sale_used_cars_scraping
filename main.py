@@ -15,7 +15,6 @@ class ScraperMain:
         self.brand_data = brand_data
         self.chunk_size = 5
         self.setup_logging()
-        self.drive_service = setup_drive_service()
 
     def setup_logging(self):
         logging.basicConfig(
