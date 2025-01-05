@@ -14,14 +14,16 @@ from pathlib import Path
 class ScraperMain:
     def __init__(self, brand_data: Dict[str, List[Tuple[str, int]]]):
         self.brand_data = brand_data
-        self.chunk_size = 5
-        self.max_concurrent_brands = 3
+        self.chunk_size = 3  # Reduced from 5 to 3
+        self.max_concurrent_brands = 2  # Reduced from 3 to 2
         self.logger = logging.getLogger(__name__)
         self.setup_logging()
         self.upload_retries = 3
-        self.upload_retry_delay = 10  # seconds
+        self.upload_retry_delay = 15  # Increased from 10 to 15 seconds
         self.temp_dir = Path("temp_files")
         self.temp_dir.mkdir(exist_ok=True)
+        self.page_delay = 3  # Added delay between page requests
+        self.chunk_delay = 30  # Increased delay between chunks
 
     def setup_logging(self):
         """Initialize logging configuration"""
@@ -43,30 +45,25 @@ class ScraperMain:
         async with semaphore:
             try:
                 async with async_playwright() as playwright:
-                    browser = await playwright.chromium.launch(headless=True)
+                    browser = await playwright.chromium.launch(
+                        headless=True,
+                        args=['--disable-dev-shm-usage']  # Added to prevent memory issues
+                    )
                     context = await browser.new_context(
                         viewport={'width': 1920, 'height': 1080},
                         user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                     )
 
-                    page_tasks = []
                     for url_template, page_count in urls:
                         for page in range(1, page_count + 1):
                             url = url_template.format(page)
-                            task = self.scrape_page(context, url, yesterday)
-                            page_tasks.append(task)
-                            await asyncio.sleep(1)  # Small delay between page tasks
-
-                    # Process pages concurrently but with controlled parallelism
-                    for batch in self._chunks(page_tasks, 5):  # Process 5 pages at a time
-                        results = await asyncio.gather(*batch, return_exceptions=True)
-                        for result in results:
-                            if isinstance(result, Exception):
-                                self.logger.error(f"Page scraping error: {str(result)}")
-                            elif result:
-                                for car_type, details in result.items():
-                                    car_data.setdefault(car_type, []).extend(details)
-                        await asyncio.sleep(2)  # Delay between batches
+                            result = await self.scrape_page(context, url, yesterday)
+                            
+                            # Merge results into car_data
+                            for car_type, details in result.items():
+                                car_data.setdefault(car_type, []).extend(details)
+                            
+                            await asyncio.sleep(self.page_delay)  # Delay between pages
 
                     await context.close()
                     await browser.close()
@@ -78,42 +75,44 @@ class ScraperMain:
 
     async def scrape_page(self, context, url: str, yesterday: str) -> Dict:
         """Scrape a single page with retry logic"""
-        for attempt in range(3):
+        result = {}
+        max_retries = 3
+        base_delay = 5
+
+        for attempt in range(max_retries):
             try:
                 scraper = DetailsScraping(url)
                 car_details = await scraper.get_car_details()
                 
-                result = {}
                 for detail in car_details:
                     if detail.get("date_published", "").split()[0] == yesterday:
                         car_type = detail.get("type", "unknown")
                         result.setdefault(car_type, []).append(detail)
                 
                 return result
-            except Exception as e:
-                if attempt == 2:
-                    raise
-                await asyncio.sleep(5)
-        return {}
 
-    def _chunks(self, lst, n):
-        """Yield successive n-sized chunks from lst."""
-        for i in range(0, len(lst), n):
-            yield lst[i:i + n]
+            except Exception as e:
+                self.logger.error(f"Attempt {attempt + 1} failed for {url}: {str(e)}")
+                if attempt < max_retries - 1:
+                    delay = base_delay * (attempt + 1)  # Exponential backoff
+                    await asyncio.sleep(delay)
+                else:
+                    self.logger.error(f"All attempts failed for {url}")
+        
+        return result
 
     async def scrape_all_brands(self):
-        """Process all brands in chunks with concurrent execution"""
-        # Create temp directory if it doesn't exist
+        """Process all brands in smaller chunks with more delay between operations"""
         self.temp_dir.mkdir(exist_ok=True)
         
-        # Split brands into chunks
+        # Split brands into smaller chunks
         brand_chunks = [
             list(self.brand_data.items())[i:i + self.chunk_size]
             for i in range(0, len(self.brand_data), self.chunk_size)
         ]
 
         # Limit concurrent operations
-        semaphore = asyncio.Semaphore(2)
+        semaphore = asyncio.Semaphore(2)  # Reduced to 2
 
         # Setup Google Drive
         try:
@@ -127,7 +126,7 @@ class ScraperMain:
             self.logger.error(f"Failed to setup Google Drive: {str(e)}")
             return
 
-        pending_uploads = []  # Track files that need to be uploaded
+        pending_uploads = []
 
         for chunk_index, chunk in enumerate(brand_chunks, 1):
             self.logger.info(f"Processing chunk {chunk_index}/{len(brand_chunks)}")
@@ -137,9 +136,9 @@ class ScraperMain:
             for brand_name, brand_urls in chunk:
                 task = asyncio.create_task(self.scrape_brand(brand_name, brand_urls, semaphore))
                 tasks.append((brand_name, task))
-                await asyncio.sleep(2)
+                await asyncio.sleep(2)  # Delay between brand task creation
             
-            # Process all brands in the chunk concurrently
+            # Process brands in the chunk
             for brand_name, task in tasks:
                 try:
                     car_data = await task
@@ -151,11 +150,11 @@ class ScraperMain:
                 except Exception as e:
                     self.logger.error(f"Error processing {brand_name}: {str(e)}")
 
-            # Upload files to Google Drive with retry mechanism
+            # Upload files after each chunk
             if pending_uploads:
                 uploaded_files = await self.upload_files_with_retry(drive_saver, pending_uploads)
                 
-                # Clean up successfully uploaded files
+                # Clean up uploaded files
                 for file in uploaded_files:
                     try:
                         os.remove(file)
@@ -163,22 +162,12 @@ class ScraperMain:
                     except Exception as e:
                         self.logger.error(f"Error cleaning up {file}: {str(e)}")
                 
-                # Clear the pending uploads list
                 pending_uploads = []
 
-            # Add a delay between chunks
+            # Add a longer delay between chunks
             if chunk_index < len(brand_chunks):
-                await asyncio.sleep(20)
-
-        # Final cleanup of temp directory
-        try:
-            remaining_files = list(self.temp_dir.glob('*'))
-            if remaining_files:
-                self.logger.warning(f"Found {len(remaining_files)} unprocessed files in temp directory")
-                # Attempt one final upload of any remaining files
-                await self.upload_files_with_retry(drive_saver, [str(f) for f in remaining_files])
-        except Exception as e:
-            self.logger.error(f"Error during final cleanup: {str(e)}")
+                self.logger.info(f"Waiting {self.chunk_delay} seconds before next chunk...")
+                await asyncio.sleep(self.chunk_delay)
 
     async def upload_files_with_retry(self, drive_saver, files: List[str]) -> List[str]:
         """Upload files to Google Drive with retry mechanism"""
