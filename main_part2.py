@@ -262,20 +262,14 @@ if __name__ == "__main__":
         "Lamborgini": [
             ("https://www.q84sale.com/en/automotive/cars/lamborgini/{}", 1),
         ],
-        "Seat": [
-            ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
-        ],
-        "Citroen": [
-            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
-        ],
-        "Ssangyong": [
-            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
-        ],
         "Baic": [
             ("https://www.q84sale.com/en/automotive/cars/baic/{}", 1),
         ],
         "GAC": [
             ("https://www.q84sale.com/en/automotive/cars/gac/{}", 1),
+        ],
+        "Seat": [
+            ("https://www.q84sale.com/en/automotive/cars/seat/{}", 1),
         ],
         "Changan": [
             ("https://www.q84sale.com/en/automotive/cars/changan/{}", 1),
@@ -288,6 +282,12 @@ if __name__ == "__main__":
         ],
         "MG": [
             ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
+        ],
+        "Ssangyong": [
+            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
+        ],
+        "Geely": [
+            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
         ],
     }
 
@@ -304,8 +304,8 @@ if __name__ == "__main__":
         "DFM": [
             ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
         ],
-        "Geely": [
-            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
+        "Citroen": [
+            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
         ],
         "Great Wal": [
             ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
