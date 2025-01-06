@@ -289,6 +289,9 @@ if __name__ == "__main__":
         "MG": [
             ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
         ],
+    }
+
+    brand_data_2 = {
         "Lynk & Co": [
             ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
         ],
@@ -349,7 +352,13 @@ if __name__ == "__main__":
         
         # Wait between sets
         await asyncio.sleep(10)
-      
+        
+        # Process second set of brands
+        scraper2 = ScraperMain(brand_data_2)
+        await scraper2.scrape_all_brands()
+        
+        # Wait between sets
+        await asyncio.sleep(10)
     
     # Run everything in the async event loop
     asyncio.run(main())
