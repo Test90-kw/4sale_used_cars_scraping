@@ -280,70 +280,9 @@ if __name__ == "__main__":
         "Ineos": [
             ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
         ],
-        "MG": [
-            ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
-        ],
-        "Ssangyong": [
-            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
-        ],
-        "Geely": [
-            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
-        ],
+    
     }
 
-    brand_data_2 = {
-        "Lynk & Co": [
-            ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
-        ],
-        "BYD": [
-            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
-        ],
-        "Lifan": [
-            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
-        ],
-        "DFM": [
-            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
-        ],
-        "Citroen": [
-            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
-        ],
-        "Great Wal": [
-            ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
-        ],
-        "Haval": [
-            ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
-        ],
-        "Hongqi": [
-            ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
-        ],
-        "Maxus": [
-            ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
-        ],
-        "Bestune": [
-            ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
-        ],
-        "Soueast": [
-            ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
-        ],
-        "Forthing": [
-            ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
-        ],
-        "Golf Carts EV": [
-            ("https://www.q84sale.com/en/automotive/used-cars/golf-carts-ev/{}", 1),
-        ],
-        "Jetour": [
-            ("https://www.q84sale.com/en/automotive/used-cars/jetour/{}", 1),
-        ],
-        "Special Needs Vehicles": [
-            ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
-        ],
-        "Other Cars": [
-            ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
-        ],
-        "Exeed": [
-            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
-        ],
-    }
     
     async def main():
         # Process first set of brands
@@ -353,12 +292,6 @@ if __name__ == "__main__":
         # Wait between sets
         await asyncio.sleep(10)
         
-        # Process second set of brands
-        scraper2 = ScraperMain(brand_data_2)
-        await scraper2.scrape_all_brands()
-        
-        # Wait between sets
-        await asyncio.sleep(10)
     
     # Run everything in the async event loop
     asyncio.run(main())
