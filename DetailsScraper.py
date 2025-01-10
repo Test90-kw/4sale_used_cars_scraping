@@ -147,6 +147,9 @@ class DetailsScraping:
 
     # Method to scrape date_published
     async def scrape_publish_date(self, relative_time):
+        if relative_time is None:
+            return "None Relative Time"
+        
         # Regex to find relative time strings like "5 Hours ago" or "30 Minutes ago"
         relative_time_pattern = r'(\d+)\s+(Second|Minute|Hour|Day)'
 
