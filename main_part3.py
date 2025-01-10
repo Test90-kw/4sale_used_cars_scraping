@@ -245,30 +245,6 @@ if __name__ == "__main__":
         "Maxus": [
             ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
         ],
-        "Bestune": [
-            ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
-        ],
-        "Soueast": [
-            ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
-        ],
-        "Forthing": [
-            ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
-        ],
-        "Golf Carts EV": [
-            ("https://www.q84sale.com/en/automotive/used-cars/golf-carts-ev/{}", 1),
-        ],
-        "Jetour": [
-            ("https://www.q84sale.com/en/automotive/used-cars/jetour/{}", 1),
-        ],
-        "Special Needs Vehicles": [
-            ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
-        ],
-        "Other Cars": [
-            ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
-        ],
-        "Exeed": [
-            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
-        ],
     }
     
     async def main():
