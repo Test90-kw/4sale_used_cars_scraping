@@ -1,8 +1,8 @@
 name: Part3 Workflow
 
 on:
-  # schedule:
-  #   - cron: '30 6 * * *' # Runs every day
+  schedule:
+    - cron: '40 6 * * *' # Runs every day
 
   workflow_dispatch:  # Allows manual triggering
   
