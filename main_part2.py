@@ -299,6 +299,15 @@ if __name__ == "__main__":
         "Haval": [
             ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
         ],
+        "MG": [
+            ("https://www.q84sale.com/en/automotive/cars/mg-2774/{}", 1),
+        ],
+        "Ssangyong": [
+            ("https://www.q84sale.com/en/automotive/cars/ssangyong/{}", 1),
+        ],
+        "Geely": [
+            ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
+        ],
     }
 
     
