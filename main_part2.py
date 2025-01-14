@@ -280,7 +280,17 @@ if __name__ == "__main__":
         "Ineos": [
             ("https://www.q84sale.com/en/automotive/cars/ineos/{}", 1),
         ],
-    
+        ###NEW
+        "Golf Carts EV": [
+            ("https://www.q84sale.com/en/automotive/used-cars/golf-carts-ev/{}", 1),
+        ],
+        "Jetour": [
+            ("https://www.q84sale.com/en/automotive/used-cars/jetour/{}", 1),
+        ],
+        "Special Needs Vehicles": [
+            ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
+        ],
+        
     }
 
     
