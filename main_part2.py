@@ -290,7 +290,15 @@ if __name__ == "__main__":
         "Special Needs Vehicles": [
             ("https://www.q84sale.com/en/automotive/used-cars/special-needs-vehicles/{}", 1),
         ],
-        
+        "Citroen": [
+            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
+        ],
+        "Great Wal": [
+            ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
+        ],
+        "Haval": [
+            ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
+        ],
     }
 
     
