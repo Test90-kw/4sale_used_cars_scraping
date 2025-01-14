@@ -289,6 +289,13 @@ if __name__ == "__main__":
         "Lotus": [
             ("https://www.q84sale.com/en/automotive/cars/lotus/{}", 1),
         ],
+        ###NEW
+        "Other Cars": [
+            ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
+        ],
+        "Exeed": [
+            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
+        ],
     }
    
     
