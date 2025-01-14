@@ -218,33 +218,33 @@ if __name__ == "__main__":
         "Geely": [
             ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
         ],
-        "Lynk & Co": [
-            ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
-        ],
-        "BYD": [
-            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
-        ],
-        "Lifan": [
-            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
-        ],
-        "DFM": [
-            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
-        ],
-        "Citroen": [
-            ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
-        ],
-        "Great Wal": [
-            ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
-        ],
-        "Haval": [
-            ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
-        ],
-        "Hongqi": [
-            ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
-        ],
-        "Maxus": [
-            ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
-        ],
+        # "Lynk & Co": [
+        #     ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
+        # ],
+        # "BYD": [
+        #     ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
+        # ],
+        # "Lifan": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
+        # ],
+        # "DFM": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
+        # ],
+        # "Citroen": [
+        #     ("https://www.q84sale.com/en/automotive/cars/citroen/{}", 1),
+        # ],
+        # "Great Wal": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/great-wal/{}", 1),
+        # ],
+        # "Haval": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/haval/{}", 1),
+        # ],
+        # "Hongqi": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
+        # ],
+        # "Maxus": [
+        #     ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
+        # ],
     }
     
     async def main():
