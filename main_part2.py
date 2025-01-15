@@ -308,6 +308,23 @@ if __name__ == "__main__":
         "Geely": [
             ("https://www.q84sale.com/en/automotive/used-cars/geely/{}", 1),
         ],
+        ###NEW
+        "Bestune": [
+            ("https://www.q84sale.com/en/automotive/used-cars/bestune/{}", 1),
+        ],
+        "Soueast": [
+            ("https://www.q84sale.com/en/automotive/used-cars/soueast/{}", 1),
+        ],
+        "Forthing": [
+            ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
+        ],
+        ###NEW
+        "Hongqi": [
+            ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
+        ],
+        "Maxus": [
+            ("https://www.q84sale.com/en/automotive/used-cars/maxus/{}", 1),
+        ],
     }
 
     
