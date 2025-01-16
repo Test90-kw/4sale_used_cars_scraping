@@ -41,12 +41,6 @@ jobs:
           npm install phantomjs-prebuilt@2.1.13
           npm cache clear --force
           npm install
-
-      - name: Run the scraper 1
-        env:
-          CAR_GCLOUD_KEY_JSON: ${{ secrets.CAR_GCLOUD_KEY_JSON }}
-        run: |
-          python main_part1.py
       
       - name: Run the scraper 2
         env:
@@ -60,6 +54,12 @@ jobs:
         run: |
           python main_part4.py
       
+      - name: Run the scraper 1
+        env:
+          CAR_GCLOUD_KEY_JSON: ${{ secrets.CAR_GCLOUD_KEY_JSON }}
+        run: |
+          python main_part1.py
+
       - name: Upload Logs
         if: always()
         uses: actions/upload-artifact@v3
