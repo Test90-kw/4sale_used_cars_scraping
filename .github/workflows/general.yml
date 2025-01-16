@@ -60,12 +60,12 @@ jobs:
         run: |
           python main_part1.py
 
-      - name: Upload Logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: scraper-logs
-          path: scraper.log
+      # - name: Upload Logs
+      #   if: always()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: scraper-logs
+      #     path: scraper.log
       
       - name: Cleanup
         run: |
