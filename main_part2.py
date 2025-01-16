@@ -319,6 +319,15 @@ if __name__ == "__main__":
             ("https://www.q84sale.com/en/automotive/used-cars/forthing/{}", 1),
         ],
         ###NEW
+        "BYD": [
+            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
+        ],
+        "Lifan": [
+            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
+        ],
+        "DFM": [
+            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
+        ],
         "Hongqi": [
             ("https://www.q84sale.com/en/automotive/used-cars/hongqi/{}", 1),
         ],
