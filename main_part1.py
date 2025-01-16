@@ -299,15 +299,7 @@ if __name__ == "__main__":
         "Lynk & Co": [
             ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
         ],
-        "BYD": [
-            ("https://www.q84sale.com/en/automotive/cars/byd/{}", 1),
-        ],
-        "Lifan": [
-            ("https://www.q84sale.com/en/automotive/used-cars/lifan/{}", 1),
-        ],
-        "DFM": [
-            ("https://www.q84sale.com/en/automotive/used-cars/dfm/{}", 1),
-        ],
+        
         
     }
    
