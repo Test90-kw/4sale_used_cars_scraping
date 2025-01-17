@@ -1,8 +1,8 @@
 name: General Workflow
 
 on:
-  schedule:
-    - cron: '20 12 * * *' # Runs every day
+  # schedule:
+  #   - cron: '20 12 * * *' # Runs every day
 
   workflow_dispatch:  # Allows manual triggering
   
