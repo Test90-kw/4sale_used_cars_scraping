@@ -279,27 +279,7 @@ if __name__ == "__main__":
         ],
         "Hummer": [
             ("https://www.q84sale.com/en/automotive/cars/hummer/{}", 1),
-        ],
-        "Maserati": [
-            ("https://www.q84sale.com/en/automotive/cars/maserati/{}", 1),
-        ],
-        "Tesla": [
-            ("https://www.q84sale.com/en/automotive/cars/tesla/{}", 1),
-        ],
-        "Lotus": [
-            ("https://www.q84sale.com/en/automotive/cars/lotus/{}", 1),
-        ],
-        ###NEW
-        "Other Cars": [
-            ("https://www.q84sale.com/en/automotive/used-cars/other-cars/{}", 1),
-        ],
-        "Exeed": [
-            ("https://www.q84sale.com/en/automotive/used-cars/exeed/{}", 1),
-        ],
-        "Lynk & Co": [
-            ("https://www.q84sale.com/en/automotive/cars/lynk-and-co/{}", 1),
-        ],
-        
+        ], 
         
     }
    
