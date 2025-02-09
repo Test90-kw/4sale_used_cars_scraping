@@ -5,6 +5,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 import os
 import json
+import pickle
 
 def get_yesterday_date():
     """Get yesterday's date in the required format."""
@@ -16,11 +17,6 @@ def authenticate_google_drive():
     SCOPES = ['https://www.googleapis.com/auth/drive']
     
     try:
-        # Get refresh token from environment
-        refresh_token = os.environ.get('GOOGLE_REFRESH_TOKEN')
-        if not refresh_token:
-            raise ValueError("GOOGLE_REFRESH_TOKEN environment variable not found")
-            
         # Get credentials from environment variable
         credentials_json = os.environ.get('ANALYSIS_COPY')
         if not credentials_json:
@@ -28,19 +24,32 @@ def authenticate_google_drive():
             
         credentials_info = json.loads(credentials_json)
         
-        # Create credentials object with all required fields
-        creds = Credentials(
-            token=None,  # Token will be obtained through refresh
-            refresh_token=refresh_token,
-            token_uri=credentials_info['installed']['token_uri'],
-            client_id=credentials_info['installed']['client_id'],
-            client_secret=credentials_info['installed']['client_secret'],
-            scopes=SCOPES
-        )
+        # Try to load saved token if it exists
+        token_path = 'token.pickle'
+        creds = None
         
-        # Force a refresh to get a valid token
-        request = Request()
-        creds.refresh(request)
+        if os.path.exists(token_path):
+            with open(token_path, 'rb') as token:
+                creds = pickle.load(token)
+        
+        # If no valid credentials available, create new ones
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                # If token expired but refresh token exists, refresh it
+                request = Request()
+                creds.refresh(request)
+            else:
+                # If no token exists, create new one
+                flow = InstalledAppFlow.from_client_config(
+                    credentials_info,
+                    SCOPES,
+                    redirect_uri='http://localhost'
+                )
+                creds = flow.run_local_server(port=0)
+            
+            # Save the credentials for next run
+            with open(token_path, 'wb') as token:
+                pickle.dump(creds, token)
         
         return build('drive', 'v3', credentials=creds)
     
@@ -51,6 +60,15 @@ def authenticate_google_drive():
 def copy_folder(service, source_folder_id, dest_folder_id, folder_name):
     """Copy a folder from source to destination."""
     try:
+        # Check if folder already exists in destination
+        query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and '{dest_folder_id}' in parents"
+        results = service.files().list(q=query).execute()
+        existing_folders = results.get('files', [])
+        
+        if existing_folders:
+            print(f"Folder {folder_name} already exists in destination. Skipping copy.")
+            return
+            
         # Create new folder in destination
         folder_metadata = {
             'name': folder_name,
@@ -74,6 +92,7 @@ def copy_folder(service, source_folder_id, dest_folder_id, folder_name):
                 fileId=file['id'],
                 body=copied_file
             ).execute()
+            print(f"Copied file: {file['name']}")
             
     except Exception as e:
         print(f"Error copying folder: {str(e)}")
@@ -81,15 +100,11 @@ def copy_folder(service, source_folder_id, dest_folder_id, folder_name):
 
 def main():
     """Main function to copy yesterday's folder."""
-    # Extract folder IDs from the URLs
     source_folder_id = "11pG4Jwy1gJUbz7cILT6sfzmLD5f75nqU"
     dest_folder_id = "1vqooBw99wWVr2SdaQeyRBtIdgpeZMlRo"
     
     try:
-        # Get yesterday's date
         yesterday = get_yesterday_date()
-        
-        # Authenticate and build service
         service = authenticate_google_drive()
         
         # Search for folder with yesterday's date in source
