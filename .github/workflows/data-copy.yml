@@ -1,0 +1,26 @@
+name: Copy Drive Folders
+on:
+  schedule:
+    - cron: '0 13 * * *'  # Runs at 1 PM UTC daily
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  copy-folders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+      - name: Run script
+        env:
+          ANALYSIS_COPY: ${{ secrets.ANALYSIS_COPY }}
+        run: python Copying_Data.py
