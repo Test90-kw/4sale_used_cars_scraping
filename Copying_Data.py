@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta
 from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 import os
 import json
+import pickle
 
 def get_yesterday_date():
     """Get yesterday's date in the required format."""
@@ -11,34 +13,43 @@ def get_yesterday_date():
     return yesterday.strftime('%Y-%m-%d')
 
 def authenticate_google_drive():
-    """Authenticate with Google Drive API using service account."""
+    """Authenticate with Google Drive API."""
     SCOPES = ['https://www.googleapis.com/auth/drive']
     
     try:
-        # Get credentials from environment variables
+        # Get credentials from environment variable
         credentials_json = os.environ.get('ANALYSIS_COPY')
-        refresh_token = os.environ.get('GOOGLE_REFRESH_TOKEN')
-        
         if not credentials_json:
             raise ValueError("ANALYSIS_COPY environment variable not found")
-        if not refresh_token:
-            raise ValueError("GOOGLE_REFRESH_TOKEN environment variable not found")
             
         credentials_info = json.loads(credentials_json)
         
-        # Create credentials object with all required fields
-        creds = Credentials(
-            token=None,  # Token will be obtained through refresh
-            refresh_token=refresh_token,
-            token_uri=credentials_info['installed']['token_uri'],
-            client_id=credentials_info['installed']['client_id'],
-            client_secret=credentials_info['installed']['client_secret'],
-            scopes=SCOPES
-        )
+        # Try to load saved token if it exists
+        token_path = 'token.pickle'
+        creds = None
         
-        # Force a refresh to get a valid token
-        request = Request()
-        creds.refresh(request)
+        if os.path.exists(token_path):
+            with open(token_path, 'rb') as token:
+                creds = pickle.load(token)
+        
+        # If no valid credentials available, create new ones
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                # If token expired but refresh token exists, refresh it
+                request = Request()
+                creds.refresh(request)
+            else:
+                # If no token exists, create new one
+                flow = InstalledAppFlow.from_client_config(
+                    credentials_info,
+                    SCOPES,
+                    redirect_uri='http://localhost'
+                )
+                creds = flow.run_local_server(port=0)
+            
+            # Save the credentials for next run
+            with open(token_path, 'wb') as token:
+                pickle.dump(creds, token)
         
         return build('drive', 'v3', credentials=creds)
     
