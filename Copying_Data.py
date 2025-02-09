@@ -5,7 +5,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 import os
 import json
-import pickle
+from google.oauth2 import service_account
 
 def get_yesterday_date():
     """Get yesterday's date in the required format."""
@@ -13,68 +13,71 @@ def get_yesterday_date():
     return yesterday.strftime('%Y-%m-%d')
 
 def authenticate_google_drive():
-    """Authenticate with Google Drive API using environment variable."""
+    """Authenticate with Google Drive API using service account."""
     SCOPES = ['https://www.googleapis.com/auth/drive']
-    creds = None
     
-    # Get credentials from environment variable
-    client_config = json.loads(os.environ.get('ANALYSIS_COPY'))
-    
-    # Load saved credentials if they exist
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    
-    # Refresh credentials if expired
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-    # If no credentials available, let user log in
-    else:
-        flow = InstalledAppFlow.from_client_config(
-            client_config, SCOPES)
-        creds = flow.run_local_server(port=0)
+    try:
+        # Get credentials from environment variable
+        credentials_info = json.loads(os.environ.get('ANALYSIS_COPY'))
         
-        # Save credentials for future use
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+        # Create credentials object directly
+        creds = Credentials(
+            token=None,
+            client_id=credentials_info['installed']['client_id'],
+            client_secret=credentials_info['installed']['client_secret'],
+            token_uri=credentials_info['installed']['token_uri'],
+            refresh_token=os.environ.get('GOOGLE_REFRESH_TOKEN')  # You'll need to add this secret
+        )
+        
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+        
+        return build('drive', 'v3', credentials=creds)
     
-    return build('drive', 'v3', credentials=creds)
+    except Exception as e:
+        print(f"Authentication error: {str(e)}")
+        raise
 
 def copy_folder(service, source_folder_id, dest_folder_id, folder_name):
     """Copy a folder from source to destination."""
-    # Create new folder in destination
-    folder_metadata = {
-        'name': folder_name,
-        'mimeType': 'application/vnd.google-apps.folder',
-        'parents': [dest_folder_id]
-    }
-    new_folder = service.files().create(body=folder_metadata).execute()
-    
-    # List all files in source folder
-    query = f"'{source_folder_id}' in parents"
-    results = service.files().list(q=query).execute()
-    files = results.get('files', [])
-    
-    # Copy each file to new folder
-    for file in files:
-        copied_file = {
-            'name': file['name'],
-            'parents': [new_folder['id']]
+    try:
+        # Create new folder in destination
+        folder_metadata = {
+            'name': folder_name,
+            'mimeType': 'application/vnd.google-apps.folder',
+            'parents': [dest_folder_id]
         }
-        service.files().copy(
-            fileId=file['id'],
-            body=copied_file
-        ).execute()
+        new_folder = service.files().create(body=folder_metadata).execute()
+        
+        # List all files in source folder
+        query = f"'{source_folder_id}' in parents"
+        results = service.files().list(q=query).execute()
+        files = results.get('files', [])
+        
+        # Copy each file to new folder
+        for file in files:
+            copied_file = {
+                'name': file['name'],
+                'parents': [new_folder['id']]
+            }
+            service.files().copy(
+                fileId=file['id'],
+                body=copied_file
+            ).execute()
+    except Exception as e:
+        print(f"Error in copy_folder: {str(e)}")
+        raise
 
 def main():
-    # Extract folder IDs from the URLs
-    source_folder_id = "11pG4Jwy1gJUbz7cILT6sfzmLD5f75nqU"
-    dest_folder_id = "1vqooBw99wWVr2SdaQeyRBtIdgpeZMlRo"
-    
-    # Get yesterday's date
-    yesterday = get_yesterday_date()
-    
     try:
+        # Extract folder IDs from the URLs
+        source_folder_id = "11pG4Jwy1gJUbz7cILT6sfzmLD5f75nqU"
+        dest_folder_id = "1vqooBw99wWVr2SdaQeyRBtIdgpeZMlRo"
+        
+        # Get yesterday's date
+        yesterday = get_yesterday_date()
+        
         # Authenticate and build service
         service = authenticate_google_drive()
         
@@ -93,7 +96,7 @@ def main():
         print(f"Successfully copied folder {yesterday}")
         
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"An error occurred in main: {str(e)}")
         raise
 
 if __name__ == '__main__':
