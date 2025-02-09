@@ -3,7 +3,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-import os.path
+import os
+import json
 import pickle
 
 def get_yesterday_date():
@@ -12,9 +13,12 @@ def get_yesterday_date():
     return yesterday.strftime('%Y-%m-%d')
 
 def authenticate_google_drive():
-    """Authenticate with Google Drive API."""
+    """Authenticate with Google Drive API using environment variable."""
     SCOPES = ['https://www.googleapis.com/auth/drive']
     creds = None
+    
+    # Get credentials from environment variable
+    client_config = json.loads(os.environ.get('ANALYSIS_COPY'))
     
     # Load saved credentials if they exist
     if os.path.exists('token.pickle'):
@@ -26,8 +30,8 @@ def authenticate_google_drive():
         creds.refresh(Request())
     # If no credentials available, let user log in
     else:
-        flow = InstalledAppFlow.from_client_secrets_file(
-            'credentials.json', SCOPES)
+        flow = InstalledAppFlow.from_client_config(
+            client_config, SCOPES)
         creds = flow.run_local_server(port=0)
         
         # Save credentials for future use
@@ -70,22 +74,27 @@ def main():
     # Get yesterday's date
     yesterday = get_yesterday_date()
     
-    # Authenticate and build service
-    service = authenticate_google_drive()
-    
-    # Search for folder with yesterday's date in source
-    query = f"name='{yesterday}' and mimeType='application/vnd.google-apps.folder' and '{source_folder_id}' in parents"
-    results = service.files().list(q=query).execute()
-    folders = results.get('files', [])
-    
-    if not folders:
-        print(f"No folder found with name {yesterday}")
-        return
-    
-    # Copy the folder
-    source_date_folder = folders[0]
-    copy_folder(service, source_date_folder['id'], dest_folder_id, yesterday)
-    print(f"Successfully copied folder {yesterday}")
+    try:
+        # Authenticate and build service
+        service = authenticate_google_drive()
+        
+        # Search for folder with yesterday's date in source
+        query = f"name='{yesterday}' and mimeType='application/vnd.google-apps.folder' and '{source_folder_id}' in parents"
+        results = service.files().list(q=query).execute()
+        folders = results.get('files', [])
+        
+        if not folders:
+            print(f"No folder found with name {yesterday}")
+            return
+        
+        # Copy the folder
+        source_date_folder = folders[0]
+        copy_folder(service, source_date_folder['id'], dest_folder_id, yesterday)
+        print(f"Successfully copied folder {yesterday}")
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        raise
 
 if __name__ == '__main__':
     main()
