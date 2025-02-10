@@ -2,7 +2,7 @@ name: Part3 Workflow
 
 on:
   schedule:
-    - cron: '30 3 * * *'
+    - cron: '30 5 * * *'
   workflow_dispatch:  # Allows manual triggering
 
 concurrency:
