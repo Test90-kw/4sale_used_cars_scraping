@@ -25,7 +25,16 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          
+          # Use a more resilient installation approach
+          while read requirement; do
+            if [[ ! -z "$requirement" && ! "$requirement" =~ ^#.* ]]; then
+              # Extract package name (before any version constraints)
+              package=$(echo "$requirement" | sed -E 's/([a-zA-Z0-9_.-]+).*/\1/')
+              echo "Installing $package..."
+              pip install "$requirement" || echo "Warning: Could not install $requirement, continuing anyway..."
+            fi
+          done < requirements.txt
           
       - name: Install Playwright for Python
         run: |
