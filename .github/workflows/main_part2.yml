@@ -15,21 +15,30 @@ jobs:
     timeout-minutes: 2000
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4  # Updated to v4
+        uses: actions/checkout@v4
         
       - name: Set up Python
-        uses: actions/setup-python@v5  # Updated to v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          
+          # Use a more resilient installation approach
+          while read requirement; do
+            if [[ ! -z "$requirement" && ! "$requirement" =~ ^#.* ]]; then
+              # Extract package name (before any version constraints)
+              package=$(echo "$requirement" | sed -E 's/([a-zA-Z0-9_.-]+).*/\1/')
+              echo "Installing $package..."
+              pip install "$requirement" || echo "Warning: Could not install $requirement, continuing anyway..."
+            fi
+          done < requirements.txt
           
       - name: Install Playwright for Python
         run: |
-          pip install playwright
+          pip install -U playwright
           python -m playwright install
           
       - name: Fix PhantomJS Issue
@@ -47,14 +56,75 @@ jobs:
       
       - name: Upload Logs
         if: always()
-        uses: actions/upload-artifact@v4  # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: scraper-logs
           path: scraper.log
-          retention-days: 7  # Added retention period
+          retention-days: 7
       
       - name: Cleanup
         if: always()
         run: |
-          rm -rf node_modules  # Clean up npm modules
-          rm -rf ~/.cache/ms-playwright  # Clean up Playwright cache
+          rm -rf node_modules
+          rm -rf ~/.cache/ms-playwright
+
+# name: Part2 Workflow
+
+# on:
+#   schedule:
+#     - cron: '30 3 * * *'  # Runs every day at 3:30 AM UTC
+#   workflow_dispatch:  # Allows manual triggering
+
+# concurrency:
+#   group: workflow-group
+#   cancel-in-progress: true
+
+# jobs:
+#   scrape:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 2000
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4  # Updated to v4
+        
+#       - name: Set up Python
+#         uses: actions/setup-python@v5  # Updated to v5
+#         with:
+#           python-version: '3.10'
+          
+#       - name: Install Dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
+          
+#       - name: Install Playwright for Python
+#         run: |
+#           pip install playwright
+#           python -m playwright install
+          
+#       - name: Fix PhantomJS Issue
+#         run: |
+#           npm uninstall phantomjs-prebuilt
+#           npm install phantomjs-prebuilt@2.1.13
+#           npm cache clear --force
+#           npm install
+          
+#       - name: Run the scraper
+#         env:
+#           CAR_GCLOUD_KEY_JSON: ${{ secrets.CAR_GCLOUD_KEY_JSON }}
+#         run: |
+#           python main_part2.py
+      
+#       - name: Upload Logs
+#         if: always()
+#         uses: actions/upload-artifact@v4  # Updated to v4
+#         with:
+#           name: scraper-logs
+#           path: scraper.log
+#           retention-days: 7  # Added retention period
+      
+#       - name: Cleanup
+#         if: always()
+#         run: |
+#           rm -rf node_modules  # Clean up npm modules
+#           rm -rf ~/.cache/ms-playwright  # Clean up Playwright cache
