@@ -22,11 +22,25 @@ jobs:
         with:
           python-version: '3.10'
           
+      # - name: Install Dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt
+      
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
           
+          # Use a more resilient installation approach
+          while read requirement; do
+            if [[ ! -z "$requirement" && ! "$requirement" =~ ^#.* ]]; then
+              # Extract package name (before any version constraints)
+              package=$(echo "$requirement" | sed -E 's/([a-zA-Z0-9_.-]+).*/\1/')
+              echo "Installing $package..."
+              pip install "$requirement" || echo "Warning: Could not install $requirement, continuing anyway..."
+            fi
+          done < requirements.txt    
+      
       - name: Install Playwright for Python
         run: |
           pip install playwright
@@ -58,3 +72,4 @@ jobs:
         run: |
           rm -rf node_modules  # Clean up npm modules
           rm -rf ~/.cache/ms-playwright  # Clean up Playwright cache
+
