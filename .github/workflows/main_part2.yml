@@ -50,7 +50,7 @@ jobs:
           
       - name: Run the scraper
         env:
-          CAR_GCLOUD_KEY_JSON: ${{ secrets.CAR_GCLOUD_KEY_JSON }}
+          CAR_GCLOUD_KEY_JSON: ${{ secrets.GCLOUD_KEY_JSON }}
         run: |
           python main_part2.py
       
