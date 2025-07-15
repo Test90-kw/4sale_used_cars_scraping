@@ -73,7 +73,7 @@ class SavingOnDrive:
             return None
 
     def save_files(self, files):
-        parent_folder_ids = ['1gZGsPJ3b2MsYzkU1XrndKE-wPMQLmz3i', '1ePH5HwSoYv69Mr2rtdLhvL0eYQfUbMdL']
+        parent_folder_ids = ['1S5jVZ7bFSEhr2aWKlSZjIRkUlNhGdYG2', '1EOZyBDFZWobN8QvznAVOWc2myS8BDfph']
         yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 
         for parent_folder_id in parent_folder_ids:
